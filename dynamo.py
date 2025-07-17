@@ -13,3 +13,14 @@ def save_booking(city, check_in_date, guests):
         'CheckInDate': check_in_date,
         'Guests': guests
     })
+
+def update_booking(city, check_in_date, new_guest_count):
+    table.update_item(
+        Key={'City': city, 'CheckInDate': check_in_date},
+        UpdateExpression='SET Guests = :guests',
+        ExpressionAttributeValues={':guests': new_guest_count},
+        ReturnValues='UPDATED_NEW'
+    )
+
+def delete_booking(city, check_in_date):
+    table.delete_item(Key={'City': city, 'CheckInDate': check_in_date})
